@@ -1,0 +1,43 @@
+<!-- templates/base.html -->
+ {% load static %}
+ <html>
+    <head>
+      <title>Mirian's Blog</title>
+	  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+	  <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    </head>
+    <body>
+		<style type="text/css">
+			body {
+				padding: 10px;
+			}
+
+		</style>
+       <header>
+			<div class="nav-left">
+				<h1><a href="{% url 'home' %}">Mirian's blog</a></h1>
+			</div>
+			<div class="nav-right">
+					<a href="{% url 'post_new' %}" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-pencil"></span> + New Blog Post</a>
+			</div>
+       </header>
+       <div>
+			{% if user.is_authenticated %}
+			<p>Hi {{ user.username }}!</p>
+			<a href="{% url 'logout' %}" class="btn btn-info btn-lg">
+			  <span class="glyphicon glyphicon-log-out"></span> Log out
+			</a>
+			{% else %}
+			<p>You are not logged in.</p>
+			<a href="{% url 'login' %}" class="btn btn-info btn-lg">
+			  <span class="glyphicon glyphicon-log-in"></span> Log in
+			</a>
+			{% endif %}
+            {% block content %}
+            {% endblock content %}
+       </div>
+   </body>
+</html>
+
